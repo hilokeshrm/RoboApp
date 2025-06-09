@@ -15,6 +15,9 @@ A simple, mobile-friendly web interface to chat with Ollama's Llama 3.2 model fr
 - 🎨 **Modern UI**: Clean, intuitive chat interface
 - 🔄 **Error Handling**: Robust error handling and retry mechanisms
 - 🖥️ **Cross-Platform**: Works on Windows, macOS, and Linux
+- 📱 **Flutter Mobile App**: Native mobile app included
+- 🔍 **Detailed Logging**: Monitor all requests, responses, and API calls
+- 📝 **Log Files**: Persistent logging to file for debugging
 
 ## 🚀 Quick Start
 
@@ -120,8 +123,83 @@ if __name__ == '__main__':
 ## 🛠️ API Endpoints
 
 - `GET /` - Serves the chat interface
+- `GET /status` - Server status and information
 - `POST /chat` - Sends messages to Ollama and returns responses
-- `POST /stream_chat` - Streaming endpoint for real-time responses (future feature)
+- `POST /stream_chat` - Streaming endpoint for real-time responses
+
+## 🔍 Detailed Logging Features
+
+### NEW: Real-time Monitoring
+
+The server now includes comprehensive logging to help you monitor all communication:
+
+#### Console Logging
+Watch real-time activity in your terminal:
+- 🔵 **Incoming Requests**: See every API call with client details
+- 🔴 **Outgoing Responses**: Monitor response status and content
+- 🤖 **Ollama Communication**: Track what's sent to and received from Ollama
+- 🔄 **Streaming Details**: Watch tokens arrive in real-time
+
+#### Log File
+All activity is automatically saved to `ollama_chat_server.log` for later analysis.
+
+#### Example Console Output
+```
+============================================================
+🔵 INCOMING REQUEST - 2024-01-09 15:30:45
+============================================================
+📍 Endpoint: /chat
+🌐 Client IP: 192.168.1.105
+🖥️  User Agent: Flutter App
+📨 Request Data: {
+  "message": "Hello, how are you?"
+}
+============================================================
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+🤖 OLLAMA COMMUNICATION - 2024-01-09 15:30:45
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+➡️  SENDING TO OLLAMA:
+   Model: llama3.2
+   Stream: false
+   Prompt: Hello, how are you?
+⬅️  RECEIVED FROM OLLAMA:
+   Response: Hello! I'm doing well, thank you for asking...
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+============================================================
+🔴 OUTGOING RESPONSE - 2024-01-09 15:30:46
+============================================================
+📍 Endpoint: /chat
+📊 Status Code: 200
+📤 Response Type: REGULAR
+💬 AI Response: Hello! I'm doing well, thank you for asking...
+============================================================
+```
+
+#### For Streaming Responses
+```
+🔄 STARTING STREAM for prompt: Tell me a story...
+🔄 Stream token #10: 'Once' | Accumulated length: 45
+🔄 Stream token #20: ' upon' | Accumulated length: 87
+🔄 Stream token #30: ' a' | Accumulated length: 132
+✅ STREAM COMPLETED
+📊 Total tokens sent: 150
+📏 Total response length: 850
+📝 Final response preview: Once upon a time, in a distant land...
+```
+
+#### Log Management
+- **View logs**: Check `ollama_chat_server.log` file
+- **Clear logs**: Run `clear_logs.bat` or delete the log file
+- **Monitor in real-time**: Watch the console while server runs
+
+#### Useful for:
+- Debugging connection issues
+- Monitoring API performance
+- Understanding token streaming behavior
+- Tracking user interactions
+- Analyzing response times
 
 ## 🔒 Security Considerations
 
